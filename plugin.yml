@@ -1,0 +1,19 @@
+name: WorldPlus
+main: com.plus.WorldPlus.Main
+version: "0.5"
+api: ["1.0.0"]
+
+load: POSTWORLD
+
+author: plus
+description: 创世神插件for nukkit
+commands:
+ pos1:
+  description: "设定位置1"
+  usage: "/pos1"
+ pos2:
+  description: "设定位置2"
+  usage: "/pos2"
+ set:
+  description: "设定方块"
+  usage: "/set [方块ID] [zxc(主线程)/dxc(多线程)] [p(显示进度百分比)/nop(不显示进度百分比)]"
