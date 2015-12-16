@@ -11,16 +11,18 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerInteractEvent;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.plugin.PluginBase;
 
 public class Main extends PluginBase implements Listener {
 	private HashMap<String, Object> pos1;
 	private HashMap<String, Object> pos2;
-	private int AxeSelectedPos=1;
+	private HashMap<String, String> AxeSelectedPos = new HashMap<>();
+	protected HashMap<String,ArrayList<HashMap<String,Object>>> CopiedOrCutBlocks = new HashMap<>();
 
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(this, this);
-		getLogger().info("¡ìe´´ÊÀÉñPlus²å¼ş¼ÓÔØÍê³É!¡ìb--By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)");
+		getLogger().info("Â§eåˆ›ä¸–ç¥Plusæ’ä»¶åŠ è½½å®Œæˆ!Â§b--By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)");
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -39,15 +41,15 @@ public class Main extends PluginBase implements Listener {
 				SenderPosition.put("z", z);
 				SenderPosition.put("level", s.getLevel().getName());
 				this.pos1.put(sender.getName(), SenderPosition);
-				sender.sendMessage("¡ìbµã1Éè¶¨Íê³É(x:"+x+",y:"+y+",z:"+z+")");
+				sender.sendMessage("Â§bç‚¹1è®¾å®šå®Œæˆ(x:"+x+",y:"+y+",z:"+z+")");
 			} else {
-				sender.sendMessage("¡ìcÇë²»ÒªÔÚºóÌ¨ÔËĞĞ!");
+				sender.sendMessage("Â§cè¯·ä¸è¦åœ¨åå°è¿è¡Œ!");
 			}
 			break;
 		case "pos2":
 			if (sender instanceof Player) {
 				if (this.IssetPos(1, sender.getName())) {
-					String Pos1Level = (String) this.GetPosInfo(1, sender.getName(), "level");
+					String Pos1Level = (String) this.GetPosInfo(1, sender.getName()).get("level");
 					if (Pos1Level.equals(s.getLevel().getName())) {
 						this.pos2 = new HashMap<String, Object>();
 						HashMap<String,Object> SenderPosition = new HashMap<>();
@@ -59,34 +61,87 @@ public class Main extends PluginBase implements Listener {
 						SenderPosition.put("z", z);
 						SenderPosition.put("level", s.getLevel().getName());
 						this.pos2.put(sender.getName(), SenderPosition);
-						sender.sendMessage("¡ìbµã2Éè¶¨Íê³É(x:"+x+",y:"+y+",z:"+z+")");
+						sender.sendMessage("Â§bç‚¹2è®¾å®šå®Œæˆ(x:"+x+",y:"+y+",z:"+z+")");
 					} else {
-						sender.sendMessage("ÇëÔÚ[" + Pos1Level + "]ÊÀ½çÀïÊ¹ÓÃ/pos2");
+						sender.sendMessage("Â§cè¯·åœ¨[" + Pos1Level + "]ä¸–ç•Œé‡Œä½¿ç”¨/pos2");
 					}
 				} else {
-					sender.sendMessage("¡ìbÇëÏÈÉè¶¨/pos1");
+					sender.sendMessage("Â§bè¯·å…ˆè®¾å®š/pos1");
 				}
 			} else {
-				sender.sendMessage("¡ìcÇë²»ÒªÔÚºóÌ¨ÔËĞĞ!");
+				sender.sendMessage("Â§cè¯·ä¸è¦åœ¨åå°è¿è¡Œ!");
 			}
 			break;
 		case "set":
 			if (sender instanceof Player) {
 				if (this.IssetPos(1, sender.getName()) && this.IssetPos(2, sender.getName())) {
-					if (args.length == 3) {
-						Set cut = new Set(this, sender.getName(), args[0],(args[2].equals("p")?true:false));
+					if (args.length == 2) {
+						Set set = new Set(this, sender.getName(), args[0]);
 						if (args[1].equals("zxc")) {
-							cut.n();
+							set.n();
 						}else if(args[1].equals("dxc")){
-							sender.sendMessage("¡ìb½«ÒÔ¶àÏß³ÌÉú³É·½¿é!");
+							set.start();
+						}
+					}
+				} else {
+					sender.sendMessage("Â§bè¯·å…ˆè®¾å®šå¯¹è§’ä½ç½®,/pos1  /pos2");
+				}
+			} else {
+				sender.sendMessage("Â§cè¯·ä¸è¦åœ¨åå°è¿è¡Œ!");
+			}
+			break;
+		case "cut":
+			if (sender instanceof Player) {
+				if (this.IssetPos(1, sender.getName()) && this.IssetPos(2, sender.getName())) {
+					if (args.length == 1) {
+						Cut cut = new Cut(this, sender.getName());
+						if (args[0].equals("zxc")) {
+							cut.n();
+						}else if(args[0].equals("dxc")){
 							cut.start();
 						}
 					}
 				} else {
-					sender.sendMessage("ÇëÏÈÉè¶¨¶Ô½ÇÎ»ÖÃ,/pos1  /pos2");
+					sender.sendMessage("Â§bè¯·å…ˆè®¾å®šå¯¹è§’ä½ç½®,/pos1  /pos2");
 				}
 			} else {
-				sender.sendMessage("¡ìcÇë²»ÒªÔÚºóÌ¨ÔËĞĞ!");
+				sender.sendMessage("Â§cè¯·ä¸è¦åœ¨åå°è¿è¡Œ!");
+			}
+			break;
+		case "copy":
+			if (sender instanceof Player) {
+				if (this.IssetPos(1, sender.getName()) && this.IssetPos(2, sender.getName())) {
+					if (args.length == 1) {
+						Copy copy = new Copy(this, sender.getName());
+						if (args[0].equals("zxc")) {
+							copy.n();
+						}else if(args[0].equals("dxc")){
+							copy.start();
+						}
+					}
+				} else {
+					sender.sendMessage("Â§bè¯·å…ˆè®¾å®šå¯¹è§’ä½ç½®,/pos1  /pos2");
+				}
+			} else {
+				sender.sendMessage("Â§cè¯·ä¸è¦åœ¨åå°è¿è¡Œ!");
+			}
+			break;
+		case "paste":
+			if (sender instanceof Player) {
+				if (this.IssetPos(1, sender.getName()) && this.IssetPos(2, sender.getName())) {
+					if (args.length == 1) {
+						Paste paste = new Paste(this, sender.getName(),new Vector3((int)s.getX(),(int)s.getY(),(int)s.getZ()));
+						if (args[0].equals("zxc")) {
+							paste.n();
+						}else if(args[0].equals("dxc")){
+							paste.start();
+						}
+					}
+				} else {
+					sender.sendMessage("Â§bè¯·å…ˆå¤åˆ¶æˆ–å‰ªä¸‹æ–¹å—!");
+				}
+			} else {
+				sender.sendMessage("Â§cè¯·ä¸è¦åœ¨åå°è¿è¡Œ!");
 			}
 			break;
 		}
@@ -97,38 +152,38 @@ public class Main extends PluginBase implements Listener {
     public void onTouch(PlayerInteractEvent event){
     	Player player = event.getPlayer();
     	if(player.isOp()){
-    	if(event.getPlayer().getInventory().getItemInHand().getId() == 258){
-    		if (this.AxeSelectedPos == 2) {  			
-    			--this.AxeSelectedPos;
-				String Pos1Level = (String) this.GetPosInfo(1, player.getName(), "level");
-				if (Pos1Level.equals(player.getLevel().getName())) {
-					this.pos2 = new HashMap<String, Object>();
-					HashMap<String,Object> playerPosition = new HashMap<>();
-					int x = (int)player.getX();
-					int y = (int)player.getY();
-					int z = (int)player.getZ();
-					playerPosition.put("x", x);
-					playerPosition.put("y", y);
-					playerPosition.put("z", z);
-					playerPosition.put("level", player.getLevel().getName());
-					this.pos2.put(player.getName(), playerPosition);
-					player.sendMessage("¡ìbµã2Éè¶¨Íê³É(x:"+x+",y:"+y+",z:"+z+")");
-				} else {
-					player.sendMessage("ÇëÔÚ[" + Pos1Level + "]ÊÀ½çÀïÊ¹ÓÃ/pos2");
-				}
-			}else{
-				++this.AxeSelectedPos;
-	    		this.pos1 = new HashMap<String, Object>();
+    	if(event.getPlayer().getInventory().getItemInHand().getId() == 258){		
+    		if ((this.AxeSelectedPos.get(player.getName()) == null) || (this.AxeSelectedPos.get(player.getName()).equals("pos1"))) {
+    			this.AxeSelectedPos.put(player.getName(),"pos2");
+    			this.pos1 = new HashMap<String, Object>();
 				HashMap<String, Object> SenderPosition = new HashMap<>();
-				int x = (int)player.getX();
-				int y = (int)player.getY();
-				int z = (int)player.getZ();
+				int x = (int)event.getBlock().getX();
+				int y = (int)event.getBlock().getY();
+				int z = (int)event.getBlock().getZ();
 				SenderPosition.put("x", x);
 				SenderPosition.put("y", y);
 				SenderPosition.put("z", z);
 				SenderPosition.put("level", player.getLevel().getName());
 				this.pos1.put(player.getName(), SenderPosition);
-				player.sendMessage("¡ìbµã1Éè¶¨Íê³É(x:"+x+",y:"+y+",z:"+z+")");
+				player.sendMessage("Â§bç‚¹1è®¾å®šå®Œæˆ(x:"+x+",y:"+y+",z:"+z+")");
+			}else{
+				this.AxeSelectedPos.put(player.getName(),"pos1");
+				String Pos1Level = (String) this.GetPosInfo(1, player.getName()).get("level");
+				if (Pos1Level.equals(player.getLevel().getName())) {
+					this.pos2 = new HashMap<String, Object>();
+					HashMap<String,Object> playerPosition = new HashMap<>();
+					int x = (int)event.getBlock().getX();
+					int y = (int)event.getBlock().getY();
+					int z = (int)event.getBlock().getZ();
+					playerPosition.put("x", x);
+					playerPosition.put("y", y);
+					playerPosition.put("z", z);
+					playerPosition.put("level", player.getLevel().getName());
+					this.pos2.put(player.getName(), playerPosition);
+					player.sendMessage("Â§bç‚¹2è®¾å®šå®Œæˆ(x:"+x+",y:"+y+",z:"+z+")");
+				} else {
+					player.sendMessage("è¯·åœ¨[" + Pos1Level + "]ä¸–ç•Œé‡Œä½¿ç”¨/pos2");
+				}
 	    	}
     	}
     	}
@@ -144,18 +199,20 @@ public class Main extends PluginBase implements Listener {
 		return false;
 	}
 
-	public Object GetPosInfo(int PosNumber, String SenderName, String Type) {
+	public Map<String, Object> GetPosInfo(int PosNumber, String SenderName) {
 		Map<String, Object> m = (PosNumber == 1 ? this.pos1 : this.pos2);
 		Map<String, Object> pos = (Map<String, Object>) m.get(SenderName);
-		return pos.get(Type);
+		return pos;
 	}
 	public ArrayList<int[]> getSelectedBlocks(String sendername) {
-		int p1x = (int) this.GetPosInfo(1, sendername, "x");
-		int p1y = (int) this.GetPosInfo(1, sendername, "y");
-		int p1z = (int) this.GetPosInfo(1, sendername, "z");
-		int p2x = (int) this.GetPosInfo(2, sendername, "x");
-		int p2y = (int) this.GetPosInfo(2, sendername, "y");
-		int p2z = (int) this.GetPosInfo(2, sendername, "z");
+		Map<String, Object> Pos1Info = this.GetPosInfo(1,sendername);
+		Map<String, Object> Pos2Info = this.GetPosInfo(2,sendername);
+		int p1x = (int) Pos1Info.get("x");
+		int p1y = (int) Pos1Info.get("y");
+		int p1z = (int) Pos1Info.get("z");
+		int p2x = (int) Pos2Info.get("x");
+		int p2y = (int) Pos2Info.get("y");
+		int p2z = (int) Pos2Info.get("z");
 		int startx = Math.min(p1x,p2x);
 		int stopx = Math.max(p1x,p2x);
 		int startz = Math.min(p1z,p2z);

@@ -1,6 +1,6 @@
 name: WorldPlus
 main: com.plus.WorldPlus.Main
-version: "0.5"
+version: "1.0"
 api: ["1.0.0"]
 
 load: POSTWORLD
@@ -16,4 +16,13 @@ commands:
   usage: "/pos2"
  set:
   description: "设定方块"
-  usage: "/set [方块ID] [zxc(主线程)/dxc(多线程)] [p(显示进度百分比)/nop(不显示进度百分比)]"
+  usage: "/set [方块ID] [zxc(主线程)/dxc(多线程)]"
+ cut:
+  description: "剪下方块"
+  usage: "/cut [zxc(主线程)/dxc(多线程)]"
+ copy:
+  description: "复制方块"
+  usage: "/cut [zxc(主线程)/dxc(多线程)]"
+ paste:
+  description: "贴上方块"
+  usage: "/paste"

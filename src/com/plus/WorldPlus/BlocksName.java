@@ -71,8 +71,8 @@ import cn.nukkit.block.Wool;
 import cn.nukkit.block.NetherBrick;
 import cn.nukkit.block.NetherBrickStairs;
 /*
- * ×÷Õß:plus
- * ÏÂÃæµÄÈ«²¿¶«Î÷¶¼ÊÇÒ»ÊÖĞ´µÄ...ÀÛËÀÁË...²»Í£µÄ²éÓ¢ÎÄÕÒ·½¿é..QAQ
+ * ä½œè€…:plus
+ * ä¸‹é¢çš„å…¨éƒ¨ä¸œè¥¿éƒ½æ˜¯ä¸€æ‰‹å†™çš„...ç´¯æ­»äº†...ä¸åœçš„æŸ¥è‹±æ–‡æ‰¾æ–¹å—..QAQ
  */
 public class BlocksName {
    public Block Block(String BlockId){

@@ -12,68 +12,32 @@ public class Set extends Thread {
 	private String sendername;
 	private Main main;
 	private String BlockId;
-	private boolean SetWithP;
 
-	public Set(Main main, String SenderName,String BlockId,boolean SetWithP) {
+	public Set(Main main, String SenderName,String BlockId) {
 		this.main = main;
 		this.sendername = SenderName;
 		this.BlockId = BlockId;
-		this.SetWithP = SetWithP;
 	}
 
 	public void run() {
 		Player player = this.main.getServer().getPlayer(this.sendername);
 		ArrayList<int[]> SelectedBlocks = this.main.getSelectedBlocks(this.sendername);
 		int blocks = SelectedBlocks.size();
-		player.sendMessage("¡ìb½«ÒÔ¡ì9¶àÏß³Ì¡ìbÉú³É¡ìe"+blocks+"¡ìb¸ö·½¿é!");
-		if(this.SetWithP){
-			this.SetWithP(SelectedBlocks);
-		}else{
-			this.SetWithOutP(SelectedBlocks);
-		}
+		player.sendMessage("Â§bå°†ä»¥Â§9å¤šçº¿ç¨‹Â§bç”ŸæˆÂ§e"+blocks+"Â§bä¸ªæ–¹å—!");
+		this.SetBlocks(SelectedBlocks);
 	}
 	public void n(){
 		Player player = this.main.getServer().getPlayer(this.sendername);
 		ArrayList<int[]> SelectedBlocks = this.main.getSelectedBlocks(this.sendername);
 		int blocks = SelectedBlocks.size();
-		player.sendMessage("¡ìb½«ÒÔ¡ìaÖ÷Ïß³Ì¡ìbÉú³É¡ìe"+blocks+"¡ìb¸ö·½¿é!");
-		if(this.SetWithP){
-			this.SetWithP(SelectedBlocks);
-		}else{
-			this.SetWithOutP(SelectedBlocks);
-		}
+		player.sendMessage("Â§bå°†ä»¥Â§aä¸»çº¿ç¨‹Â§bç”ŸæˆÂ§e"+blocks+"Â§bä¸ªæ–¹å—!");
+		this.SetBlocks(SelectedBlocks);
 	}
-	public void SetWithP(ArrayList<int[]> SelectedBlocks){ //Éú³É·½¿éÊ±ÏÔÊ¾°Ù·Ö±È,½ÏÂı
+	public void SetBlocks(ArrayList<int[]> SelectedBlocks){
 		Player player = this.main.getServer().getPlayer(this.sendername);
-		String levelname = (String) this.main.GetPosInfo(1, this.sendername, "level");
-		Level level = this.main.getServer().getLevelByName(levelname);
-		Iterator<int[]> iterator = SelectedBlocks.iterator(); 
         int SelectedBlocksAmount = SelectedBlocks.size();
-        int BlockNo = 0;
-        Block block = new BlocksName().Block(this.BlockId);
-		long starttime = System.currentTimeMillis();
-		while(iterator.hasNext()){
-			int[] next = iterator.next();
-			++BlockNo;
-			if(BlockNo == (SelectedBlocksAmount/4)){
-				player.sendMessage("¡ìb½ø¶È...25%");
-			}else if(BlockNo == (SelectedBlocksAmount/2)){
-				player.sendMessage("¡ìb½ø¶È...50%");
-			}else if(BlockNo == ((SelectedBlocksAmount/4)*3)){
-				player.sendMessage("¡ìb½ø¶È...75%");
-			}
-			level.setBlock(new Vector3(next[0],next[1],next[2]),block);
-		}
-        long endtime = System.currentTimeMillis();
-        player.sendMessage("¡ìb½ø¶È...100%");
-        player.sendMessage("¡ìbÉú³ÉÍê±Ï!¡ìcÈçÎŞ·¨ÍêÕûÏÔÊ¾·½¿é,ÇëÖØĞÂ¼ÓÈë·şÎñÆ÷\n"+"¡ìb¹²´¦Àí"+SelectedBlocksAmount+"·½¿é!ºÄÊ±:"+(endtime-starttime)+"ºÁÃë\n¡ìe--´´ÊÀÉñ²å¼ş(v0.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
-	}
-	public void SetWithOutP(ArrayList<int[]> SelectedBlocks){ //Éú³É·½¿éÊ±²»ÏÔÊ¾°Ù·Ö±È,½Ï¿ì
-		Player player = this.main.getServer().getPlayer(this.sendername);
-		String levelname = (String) this.main.GetPosInfo(1, this.sendername, "level");
-		Level level = this.main.getServer().getLevelByName(levelname);
+		Level level = this.main.getServer().getLevelByName((String) this.main.GetPosInfo(1, this.sendername).get("level"));
 		Iterator<int[]> iterator = SelectedBlocks.iterator(); 
-        int SelectedBlocksAmount = SelectedBlocks.size();
         Block block = new BlocksName().Block(this.BlockId);
 		long starttime = System.currentTimeMillis();
 		while(iterator.hasNext()){
@@ -81,6 +45,6 @@ public class Set extends Thread {
 			level.setBlock(new Vector3(next[0],next[1],next[2]),block);
 		}
         long endtime = System.currentTimeMillis();
-        player.sendMessage("¡ìbÉú³ÉÍê±Ï!¡ìcÈçÎŞ·¨ÍêÕûÏÔÊ¾·½¿é,ÇëÖØĞÂ¼ÓÈë·şÎñÆ÷\n"+"¡ìb¹²´¦Àí"+SelectedBlocksAmount+"·½¿é!ºÄÊ±:"+(endtime-starttime)+"ºÁÃë\n¡ìe--´´ÊÀÉñ²å¼ş(v0.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
+        player.sendMessage("Â§bç”Ÿæˆå®Œæ¯•!Â§cå¦‚æ— æ³•å®Œæ•´æ˜¾ç¤ºæ–¹å—,è¯·é‡æ–°åŠ å…¥æœåŠ¡å™¨\nÂ§bå…±å¤„ç†"+SelectedBlocksAmount+"æ–¹å—!è€—æ—¶:"+(endtime-starttime)+"æ¯«ç§’\nÂ§e--åˆ›ä¸–ç¥æ’ä»¶(v1.0)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
 	}
 }
