@@ -45,6 +45,6 @@ public class Set extends Thread {
 			level.setBlock(new Vector3(next[0],next[1],next[2]),block);
 		}
         long endtime = System.currentTimeMillis();
-        player.sendMessage("§b生成完毕!§c如无法完整显示方块,请重新加入服务器\n§b共处理"+SelectedBlocksAmount+"方块!耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.0)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
+        player.sendMessage("§b生成完毕!§c如无法完整显示方块,请重新加入服务器\n§b共处理"+SelectedBlocksAmount+"方块!耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
 	}
 }

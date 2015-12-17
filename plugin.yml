@@ -1,6 +1,6 @@
 name: WorldPlus
 main: com.plus.WorldPlus.Main
-version: "1.0"
+version: "1.5"
 api: ["1.0.0"]
 
 load: POSTWORLD
@@ -25,4 +25,4 @@ commands:
   usage: "/cut [zxc(主线程)/dxc(多线程)]"
  paste:
   description: "贴上方块"
-  usage: "/paste"
+  usage: "/paste [zxc(主线程)/dxc(多线程)] [0(不旋转)/90[旋转90度]/180/270]"

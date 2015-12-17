@@ -12,20 +12,26 @@ public class Paste extends Thread{
 	private Main main;
 	private String SenderName;
     private Vector3 v3;
+    private String RotateAngle = "0";
     
-	public Paste(Main main, String SenderName,Vector3 v3) {
+	public Paste(Main main, String SenderName,Vector3 v3,String RotateAngle) {
 		this.main = main;
 		this.SenderName = SenderName;
 		this.v3 = v3;
+		this.RotateAngle = RotateAngle;
 	}
 	public void run(){
 		Player player = this.main.getServer().getPlayer(this.SenderName);
 		player.sendMessage("§b将以§9多线程§b贴上方块!");
+		Rotate rotate = new Rotate(this.main,this.SenderName,this.RotateAngle);
+		rotate.start();
 		this.PasteBlocks();
 	}
 	public void n(){
 		Player player = this.main.getServer().getPlayer(this.SenderName);
 		player.sendMessage("§b将以§a主线程§b贴上方块!");
+		Rotate rotate = new Rotate(this.main,this.SenderName,this.RotateAngle);
+		rotate.n();
 		this.PasteBlocks();
 	}
 	public void PasteBlocks(){
@@ -44,6 +50,6 @@ public class Paste extends Thread{
         	level.setBlock(new Vector3(x,y,z),(Block)Block.get("block"));
         }
         long endtime = System.currentTimeMillis();
-        player.sendMessage("§b贴上完毕!§c如无法完整显示方块,请重新加入服务器\n§b耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.0)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
+        player.sendMessage("§b贴上完毕!§c如无法完整显示方块,请重新加入服务器\n§b耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
 	}
 }

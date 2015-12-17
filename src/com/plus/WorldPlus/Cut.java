@@ -54,9 +54,9 @@ public class Cut extends Thread{
         			++SelectedBlocksAmount;
         			Block block = level.getBlock(new Vector3(nstartx,nstarty,nstartz));
         			HashMap<String,Object> Block = new HashMap<>();
-        			Block.put("x",(nstartx-(int)player.getX()));
-        			Block.put("y",(nstarty-(int)player.getY()));
-        			Block.put("z",(nstartz-(int)player.getZ()));
+        			Block.put("x",(nstartx-startx));
+        			Block.put("y",(nstarty-starty));
+        			Block.put("z",(nstartz-startz));
         			Block.put("block",block);
         			CutBlocks.add(Block);
         			level.setBlock(new Vector3(nstartx,nstarty,nstartz),new Air());
@@ -65,6 +65,6 @@ public class Cut extends Thread{
         }
         long endtime = System.currentTimeMillis();
         this.main.CopiedOrCutBlocks.put(this.SenderName,CutBlocks);
-        player.sendMessage("§b剪下完毕!§c如无法完整显示方块,请重新加入服务器\n§b共剪下"+SelectedBlocksAmount+"方块!耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.0)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
+        player.sendMessage("§b剪下完毕!§c如无法完整显示方块,请重新加入服务器\n§b共剪下"+SelectedBlocksAmount+"方块!耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
 	}
 }

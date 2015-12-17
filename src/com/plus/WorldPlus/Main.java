@@ -22,7 +22,7 @@ public class Main extends PluginBase implements Listener {
 
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(this, this);
-		getLogger().info("§e创世神Plus插件加载完成!§b--By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)");
+		getLogger().info("§e创世神Plus(v1.5)插件加载完成!§b--By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)");
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -129,8 +129,8 @@ public class Main extends PluginBase implements Listener {
 		case "paste":
 			if (sender instanceof Player) {
 				if (this.IssetPos(1, sender.getName()) && this.IssetPos(2, sender.getName())) {
-					if (args.length == 1) {
-						Paste paste = new Paste(this, sender.getName(),new Vector3((int)s.getX(),(int)s.getY(),(int)s.getZ()));
+					if (args.length == 2) {
+						Paste paste = new Paste(this, sender.getName(),new Vector3((int)s.getX(),(int)s.getY(),(int)s.getZ()),args[1]);
 						if (args[0].equals("zxc")) {
 							paste.n();
 						}else if(args[0].equals("dxc")){
