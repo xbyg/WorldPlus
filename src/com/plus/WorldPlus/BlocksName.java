@@ -1,78 +1,11 @@
 package com.plus.WorldPlus;
 
-import cn.nukkit.block.AcaciaWoodStairs;
-import cn.nukkit.block.Air;
-import cn.nukkit.block.Bedrock;
-import cn.nukkit.block.BirchWoodStairs;
-import cn.nukkit.block.Block;
-import cn.nukkit.block.Bookshelf;
-import cn.nukkit.block.BrickStairs;
-import cn.nukkit.block.Bricks;
-import cn.nukkit.block.BrownMushroom;
-import cn.nukkit.block.BurningFurnace;
-import cn.nukkit.block.Cactus;
-import cn.nukkit.block.Clay;
-import cn.nukkit.block.CoalOre;
-import cn.nukkit.block.Cobblestone;
-import cn.nukkit.block.CobblestoneStairs;
-import cn.nukkit.block.DarkOakWoodStairs;
-import cn.nukkit.block.Diamond;
-import cn.nukkit.block.DiamondOre;
-import cn.nukkit.block.Dirt;
-import cn.nukkit.block.DoubleSlab;
-import cn.nukkit.block.EmeraldOre;
-import cn.nukkit.block.EndStone;
-import cn.nukkit.block.Farmland;
-import cn.nukkit.block.Furnace;
-import cn.nukkit.block.Glass;
-import cn.nukkit.block.GlassPane;
-import cn.nukkit.block.GlowingObsidian;
-import cn.nukkit.block.Glowstone;
-import cn.nukkit.block.Gold;
-import cn.nukkit.block.GoldOre;
-import cn.nukkit.block.Grass;
-import cn.nukkit.block.GrassPath;
-import cn.nukkit.block.Gravel;
-import cn.nukkit.block.HardenedClay;
-import cn.nukkit.block.HayBale;
-import cn.nukkit.block.Ice;
-import cn.nukkit.block.Iron;
-import cn.nukkit.block.IronBars;
-import cn.nukkit.block.IronOre;
-import cn.nukkit.block.JungleWoodStairs;
-import cn.nukkit.block.Lapis;
-import cn.nukkit.block.LapisOre;
-import cn.nukkit.block.Lava;
-import cn.nukkit.block.Leaves;
-import cn.nukkit.block.MossStone;
-import cn.nukkit.block.Obsidian;
-import cn.nukkit.block.Planks;
-import cn.nukkit.block.Podzol;
-import cn.nukkit.block.Pumpkin;
-import cn.nukkit.block.Quartz;
-import cn.nukkit.block.QuartzStairs;
-import cn.nukkit.block.RedstoneOre;
-import cn.nukkit.block.Sandstone;
-import cn.nukkit.block.SandstoneStairs;
-import cn.nukkit.block.Slab;
-import cn.nukkit.block.Sponge;
-import cn.nukkit.block.SpruceWoodStairs;
-import cn.nukkit.block.StainedClay;
-import cn.nukkit.block.StillLava;
-import cn.nukkit.block.StillWater;
-import cn.nukkit.block.Stone;
-import cn.nukkit.block.StoneBricks;
-import cn.nukkit.block.Stonecutter;
-import cn.nukkit.block.TNT;
-import cn.nukkit.block.Water;
-import cn.nukkit.block.Wood;
-import cn.nukkit.block.WoodStairs;
-import cn.nukkit.block.Wool;
-import cn.nukkit.block.NetherBrick;
-import cn.nukkit.block.NetherBrickStairs;
+import cn.nukkit.block.*;
+
 /*
  * 作者:plus
  * 下面的全部东西都是一手写的...累死了...不停的查英文找方块..QAQ
+ * 已停用...
  */
 public class BlocksName {
    public Block Block(String BlockId){

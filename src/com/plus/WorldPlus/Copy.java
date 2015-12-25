@@ -64,6 +64,6 @@ public class Copy extends Thread{
         }
         long endtime = System.currentTimeMillis();
         this.main.CopiedOrCutBlocks.put(this.SenderName,CutBlocks);
-        player.sendMessage("§b复制完毕!§c如无法完整显示方块,请重新加入服务器\n§b共复制"+SelectedBlocksAmount+"方块!耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
+        player.sendMessage("§b复制完毕!§c如无法完整显示方块,请重新加入服务器\n§b共复制"+SelectedBlocksAmount+"方块!耗时:"+(endtime-starttime)+"毫秒\n§e--创世神插件(v1.6)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
 	}
 }

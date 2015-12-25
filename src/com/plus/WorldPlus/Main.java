@@ -22,7 +22,7 @@ public class Main extends PluginBase implements Listener {
 
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(this, this);
-		getLogger().info("§e创世神Plus(v1.5)插件加载完成!§b--By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)");
+		getLogger().info("§e创世神Plus(v1.6)插件加载完成!§b--By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)");
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -76,10 +76,10 @@ public class Main extends PluginBase implements Listener {
 			if (sender instanceof Player) {
 				if (this.IssetPos(1, sender.getName()) && this.IssetPos(2, sender.getName())) {
 					if (args.length == 2) {
-						Set set = new Set(this, sender.getName(), args[0]);
-						if (args[1].equals("zxc")) {
+						Set set = new Set(this, sender.getName(), args[1]);
+						if (args[0].equals("zxc")) {
 							set.n();
-						}else if(args[1].equals("dxc")){
+						}else if(args[0].equals("dxc")){
 							set.start();
 						}
 					}
@@ -203,30 +203,5 @@ public class Main extends PluginBase implements Listener {
 		Map<String, Object> m = (PosNumber == 1 ? this.pos1 : this.pos2);
 		Map<String, Object> pos = (Map<String, Object>) m.get(SenderName);
 		return pos;
-	}
-	public ArrayList<int[]> getSelectedBlocks(String sendername) {
-		Map<String, Object> Pos1Info = this.GetPosInfo(1,sendername);
-		Map<String, Object> Pos2Info = this.GetPosInfo(2,sendername);
-		int p1x = (int) Pos1Info.get("x");
-		int p1y = (int) Pos1Info.get("y");
-		int p1z = (int) Pos1Info.get("z");
-		int p2x = (int) Pos2Info.get("x");
-		int p2y = (int) Pos2Info.get("y");
-		int p2z = (int) Pos2Info.get("z");
-		int startx = Math.min(p1x,p2x);
-		int stopx = Math.max(p1x,p2x);
-		int startz = Math.min(p1z,p2z);
-		int stopz = Math.max(p1z,p2z);
-		int starty = Math.min(p1y,p2y);
-		int stopy = Math.max(p1y,p2y);
-		ArrayList<int[]> SelectedBlocks = new ArrayList<>();
-        for(int nstartx=startx;nstartx <= stopx;nstartx++){
-        	for(int nstartz=startz;nstartz <= stopz;nstartz++){
-        		for(int nstarty=starty;nstarty <= stopy;nstarty++){
-        			SelectedBlocks.add(new int[]{nstartx,nstarty,nstartz});
-        		}
-        	}
-        }
-        return SelectedBlocks;
 	}
 }

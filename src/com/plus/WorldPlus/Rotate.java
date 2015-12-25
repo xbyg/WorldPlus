@@ -51,7 +51,7 @@ public class Rotate extends Thread {
 			}
 			}
 			long endtime = System.currentTimeMillis();
-			player.sendMessage("§a旋转完毕!§e耗时:" + (endtime - starttime)+ "毫秒\n§e--创世神插件(v1.5)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
+			player.sendMessage("§a旋转完毕!§e耗时:" + (endtime - starttime)+ "毫秒\n§e--创世神插件(v1.6)By Plus(http://tieba.baidu.com/p/4212029014?pid=80628659576)--");
 		}
 	}
 }
